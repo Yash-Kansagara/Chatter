@@ -1,4 +1,4 @@
-package Facebook;
+package Google;
 
 import java.net.ConnectException;
 
@@ -7,19 +7,20 @@ import org.jivesoftware.smack.SASLAuthentication;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 
-public class Account {
+import Facebook.MyAuth;
 
+public class Account {
 	public Account(String u, String p) {
 		USERNAME = u;
 		PASSWORD = p;
 	}
+	private String USERNAME, PASSWORD;
+	private ConnectionConfiguration cc;
+	private XMPPConnection connection;
 
 	public Account() {
 		// TODO Auto-generated constructor stub
 	}
-	private String USERNAME, PASSWORD;
-	private ConnectionConfiguration cc;
-	private XMPPConnection connection;
 
 	public void setPASSWORD(String pASSWORD) {
 		PASSWORD = pASSWORD;
@@ -28,9 +29,8 @@ public class Account {
 	public void setUSERNAME(String uSERNAME) {
 		USERNAME = uSERNAME;
 	}
-
-	// Login functionality
-	public boolean login() throws XMPPException, ConnectException {
+	
+	public boolean login() throws XMPPException, ConnectException{
 		initConnection();
 		connection.connect();
 		if (!connection.isConnected())
@@ -44,13 +44,14 @@ public class Account {
 		} else
 			return false;
 	}
-
-	private void initConnection() {
+	
+	private void initConnection(){
 		SASLAuthentication.registerSASLMechanism("DIGEST-MD5",MyAuth.class);
-		cc = new ConnectionConfiguration("chat.facebook.com", 5222,
-				"chat.facebook.com");
+		cc = new ConnectionConfiguration("talk.google.com", 5222,
+				"gtalk.com");
 		cc.setSASLAuthenticationEnabled(true);
 		cc.setRosterLoadedAtLogin(true);
 		connection = new XMPPConnection(cc);
+		
 	}
 }
