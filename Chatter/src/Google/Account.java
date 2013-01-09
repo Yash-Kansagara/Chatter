@@ -46,10 +46,10 @@ public class Account {
 	}
 	
 	private void initConnection(){
-		SASLAuthentication.registerSASLMechanism("DIGEST-MD5",MyAuth.class);
+		
 		cc = new ConnectionConfiguration("talk.google.com", 5222,
 				"gtalk.com");
-		cc.setSASLAuthenticationEnabled(true);
+		
 		cc.setRosterLoadedAtLogin(true);
 		connection = new XMPPConnection(cc);
 		
