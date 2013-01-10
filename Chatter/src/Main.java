@@ -1,3 +1,5 @@
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.net.ConnectException;
 
 import org.jivesoftware.smack.XMPPException;
@@ -8,13 +10,14 @@ public class Main {
 
 	/**
 	 * this Main program is still for experimenting library.
+	 * @throws InterruptedException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		// if(args.length != 2){
-		final Google.Account a = new Google.Account("<username>","<password>");
+		final Google.Account a = new Google.Account("yashatcollege@gmail.com","khuljasimsim23");
 		final Facebook.Account a2 = new Facebook.Account("<username>","<password>");
 		Thread google, facebook;
-		google = new Thread() {
+		facebook = new Thread() {
 			public void run() {
 				try {
 					System.out.println("Facebook logged in:" + a2.login());
@@ -25,10 +28,13 @@ public class Main {
 
 		};
 
-		facebook = new Thread() {
+		google = new Thread() {
 			public void run() {
 				try {
 					System.out.println("Google logged in:" + a.login());
+					System.out.println("Loading Roster...");
+					a.loadRoster();
+					a.getFriendList();
 				} catch (ConnectException | XMPPException e) {
 					System.out.println("Something's wrong !");
 				}
@@ -37,9 +43,9 @@ public class Main {
 		};
 		try {
 			google.join();
-			facebook.join();
+			//facebook.join();
 			google.start();
-			facebook.start();
+			//facebook.start();
 		} catch (InterruptedException e) {
 			System.out.println(e.toString());
 		}
@@ -47,6 +53,9 @@ public class Main {
 		// else{
 		// System.out.println("Usage java Main <username> <password>");
 		// }
+		while(true){
+			Thread.sleep(1000);
+		}
 	}
 
 }
