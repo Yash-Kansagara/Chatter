@@ -14,7 +14,7 @@ public class Main {
 	 */
 	public static void main(String[] args) throws InterruptedException {
 		// if(args.length != 2){
-		final Google.Account a = new Google.Account("yashatcollege@gmail.com","khuljasimsim23");
+		final Google.Account a = new Google.Account("<username>","<password>");
 		final Facebook.Account a2 = new Facebook.Account("<username>","<password>");
 		Thread google, facebook;
 		facebook = new Thread() {
