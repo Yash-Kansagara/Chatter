@@ -4,10 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
 import java.awt.Label;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowStateListener;
+import java.awt.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -22,9 +23,11 @@ public class Card extends JFrame {
 	JPanel login, chats;
 	JTextField username;
 	JPasswordField password;
-	
-	
+	JButton login_button,logout_button;
+	JPanel ThisCard;
 	public Card(int type) {
+		
+		ThisCard = (JPanel) getContentPane();
 		// Set the title
 		switch(type){
 		case GOOGLE:
@@ -53,10 +56,32 @@ public class Card extends JFrame {
 		password = new JPasswordField("password",20);
 		login.add(password);
 		
+		login_button = new JButton("Login");
+		login_button.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+			card.next(ThisCard);
+			}
+		});
+		login.add(login_button);
+		//chats panel
+		List l = new List();
+		chats.setLayout(new BorderLayout());
+		chats.add(l,BorderLayout.CENTER);
+		logout_button = new JButton("Logout");
+		chats.add(logout_button,BorderLayout.SOUTH);
+		logout_button.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				card.previous(ThisCard);
+			}
+		});
+		
 		//add Panels
 		setSize(250,500);
 		add(login, "Login_card");
-		
+		add(chats,"chat list");
 		//Set visible
 		//setVisible(true);
 		
